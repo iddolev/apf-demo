@@ -19,17 +19,14 @@ from pathlib import Path
 
 # ── Configuration ────────────────────────────────────────────────────────────
 
-REPO_URL = "https://github.com/YOUR_USER/YOUR_REPO.git"
-DEFAULT_BRANCH = "main"
+REPO_URL = "https://github.com/iddolev/apf.git"
 
 # Source path inside the cloned repo → destination path relative to project root.
 # Directories are copied recursively; files are copied individually.
 FILE_MAP: dict[str, str] = {
-    "template/.claude/commands": ".claude/commands",
-    "template/hooks":            ".claude/hooks",
-    "template/CLAUDE.md":        "CLAUDE.md",
-    # Add more mappings as needed:
-    # "template/some_config.toml": ".config/some_config.toml",
+    "dist/.claude/commands": ".claude/commands",
+    "dist/hooks":            ".claude/hooks",
+    "dist/CLAUDE.md":        "CLAUDE.md",
 }
 
 # Files where we inject content between markers instead of overwriting.
@@ -65,15 +62,13 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-def clone_repo(tmp_dir: Path, branch: str) -> Path:
+def clone_repo(tmp_dir: Path) -> Path:
     """Shallow-clone the framework repo into *tmp_dir* and return the path."""
-    dest = tmp_dir / "framework"
-    print(f"⏳ Cloning {REPO_URL} (branch: {branch}) …")
+    dest = tmp_dir / "apf"
+    print(f"⏳ Cloning {REPO_URL} ...")
     subprocess.run(
         [
             "git", "clone",
-            "--depth", "1",
-            "--branch", branch,
             REPO_URL,
             str(dest),
         ],
@@ -85,17 +80,12 @@ def clone_repo(tmp_dir: Path, branch: str) -> Path:
     return dest
 
 
-def read_framework_version(repo_dir: Path) -> str:
+def get_new_version(repo_dir: Path) -> str:
     """Read the version string shipped with the framework repo."""
-    version_path = repo_dir / "VERSION"
+    version_path = repo_dir / VERSION_FILE
     if version_path.exists():
         return version_path.read_text().strip()
-    # Fallback: use the short commit hash.
-    result = subprocess.run(
-        ["git", "-C", str(repo_dir), "rev-parse", "--short", "HEAD"],
-        capture_output=True, text=True, check=True,
-    )
-    return result.stdout.strip()
+    raise FileNotFoundError(f"Cloned repo is missing version file {version_path}")
 
 
 def merge_with_markers(
@@ -170,9 +160,9 @@ def copy_entry(
         print(f"  📄 Copied → {dest}")
 
 
-def install(repo_dir: Path, project_dir: Path, version: str, args: argparse.Namespace) -> None:
+def install(repo_dir: Path, project_dir: Path, new_version: str, args: argparse.Namespace) -> None:
     """Walk FILE_MAP and copy / merge everything into the project."""
-    print(f"\n📦 Installing framework v{version} into {project_dir}\n")
+    print(f"\n📦 Installing APF v{new_version} into {project_dir}\n")
 
     for src_rel, dest_rel in FILE_MAP.items():
         src = repo_dir / src_rel
@@ -184,17 +174,17 @@ def install(repo_dir: Path, project_dir: Path, version: str, args: argparse.Name
 
         if dest_rel in MARKER_MERGE_FILES:
             source_content = src.read_text()
-            merge_with_markers(source_content, dest, version, dry_run=args.dry_run)
+            merge_with_markers(source_content, dest, new_version, dry_run=args.dry_run)
         else:
             copy_entry(src, dest, dry_run=args.dry_run, force=args.force)
 
     # Write version stamp.
     version_path = project_dir / VERSION_FILE
     if args.dry_run:
-        print(f"\n  [dry-run] Would write version {version} → {version_path}")
+        print(f"\n  [dry-run] Would write version {new_version} → {version_path}")
     else:
-        version_path.write_text(version + "\n")
-        print(f"\n✅ Installed. Version recorded in {VERSION_FILE}")
+        version_path.write_text(new_version)
+        print(f"\n✅ Installed APF version {new_version} successfully.")
 
 
 # ── Entry point ──────────────────────────────────────────────────────────────
@@ -218,18 +208,18 @@ def main() -> None:
     with tempfile.TemporaryDirectory(prefix="apf-") as tmp:
         tmp_dir = Path(tmp)
         repo_dir = clone_repo(tmp_dir, args.branch)
-        version = read_framework_version(repo_dir)
+        new_version = get_new_version(repo_dir)
 
         # Check if already installed at this version.
         existing_version_path = project_dir / VERSION_FILE
         if existing_version_path.exists():
             current = existing_version_path.read_text().strip()
-            if current == version and not args.force:
-                print(f"ℹ️  Already at version {version}. Use --force to reinstall.")
+            if current == new_version and not args.force:
+                print(f"ℹ️  Already at version {new_version}. Use --force to reinstall.")
                 sys.exit(0)
-            print(f"🔄 Updating {current} → {version}")
+            print(f"🔄 Updating {current} → {new_version}")
 
-        install(repo_dir, project_dir, version, args)
+        install(repo_dir, project_dir, new_version, args)
 
 
 if __name__ == "__main__":
