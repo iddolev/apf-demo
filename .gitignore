@@ -209,3 +209,6 @@ __marimo__/
 private/
 tmp/
 temp/
+
+# Installation files taken from the APF repo
+apf_install.*
