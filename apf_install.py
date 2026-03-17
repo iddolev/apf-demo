@@ -42,23 +42,38 @@ VERSION_FILE = ".apf-version"
 # ── Core logic ───────────────────────────────────────────────────────────────
 
 
+VALID_FLAGS = {"--dry-run", "--force", "--help"}
+
+HELP_TEXT = """\
+Install / update the APF framework into the current project folder.
+
+Usage:
+    python apf_install.py [OPTIONS]
+
+Options:
+    --dry-run          Show what would be done without touching any files.
+    --branch BRANCH    Git branch / tag to clone (default: main).
+    --force            Overwrite existing files without prompting.
+    --help             Show this help message and exit.
+"""
+
+
 def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Show what would be done without touching any files.",
-    )
-    p.add_argument(
-        "--branch",
-        default=DEFAULT_BRANCH,
-        help=f"Git branch / tag to clone (default: {DEFAULT_BRANCH}).",
-    )
-    p.add_argument(
-        "--force",
-        action="store_true",
-        help="Overwrite existing files without prompting.",
-    )
+    # Validate flags before letting argparse parse them.
+    raw_args = sys.argv[1:]
+    for arg in raw_args:
+        if arg.startswith("--") and arg not in VALID_FLAGS:
+            print(f"Error: Unknown flag '{arg}'.")
+            print(f"Valid flags are: {', '.join(sorted(VALID_FLAGS))}")
+            sys.exit(1)
+
+    if "--help" in raw_args:
+        print(HELP_TEXT)
+        sys.exit(0)
+
+    p = argparse.ArgumentParser(description=__doc__, add_help=False)
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--force", action="store_true")
     return p.parse_args()
 
 
@@ -194,6 +209,8 @@ def main() -> None:
     args = parse_args()
     project_dir = Path.cwd()
 
+
+
     # Confirm before proceeding.
     existing_version_path = project_dir / VERSION_FILE
     if existing_version_path.exists():
@@ -201,13 +218,18 @@ def main() -> None:
     else:
         action = "install"
     print(f"This will {action} the APF framework in {project_dir}")
-    if input("Continue? [y/N] ").strip().lower() not in ("y", "yes"):
-        print("Aborted.")
-        sys.exit(0)
+    while True:
+        answer = input("Continue? [y/N] ").strip().lower()
+        if answer in ("y", "yes"):
+            break
+        if answer in ("n", "no", ""):
+            print("Aborted.")
+            sys.exit(0)
+        print(f"Invalid input: '{answer}'. Please enter y or n.")
 
     with tempfile.TemporaryDirectory(prefix="apf-") as tmp:
         tmp_dir = Path(tmp)
-        repo_dir = clone_repo(tmp_dir, args.branch)
+        repo_dir = clone_repo(tmp_dir)
         new_version = get_new_version(repo_dir)
 
         # Check if already installed at this version.
