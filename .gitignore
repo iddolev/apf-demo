@@ -211,6 +211,7 @@ tmp/
 temp/
 
 # Don't include files of APF in your repo
+pip_update.bat
 apf_install.bat
 apf_install.py
 .claude/commands/apf/
