@@ -1,0 +1,184 @@
+{
+  "hooks": {
+    "ConfigChange": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "InstructionsLoaded": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "TeammateIdle": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude\\\\scripts\\\\apf\\\\log_claude_code_hook_event.bat"
+          }
+        ]
+      }
+    ]
+  }
+}
