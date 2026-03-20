@@ -214,6 +214,7 @@ logs/
 pip_update.bat
 
 # Don't include files of APF in your repo
+apf_install.bat
 .apf/
 .claude/commands/apf/
 .claude/scripts/apf/
