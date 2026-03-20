@@ -209,7 +209,6 @@ __marimo__/
 private/
 tmp/
 temp/
+logs/
 
-# Don't include files of APF in your repo
 pip_update.bat
-apf_install.bat

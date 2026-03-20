@@ -1,5 +1,5 @@
 ---
-name: demo-agent2
+name: demo-agent1
 description: Simply replies "I am demo agent number 2".
 ---
 
