@@ -16,7 +16,7 @@ When invoked, execute the following steps **in order**, waiting for each step to
 launching the next. You dispatch to each agent using the **Task tool** and wait for
 results before advancing to the next stage.
 
-1. Do the instructions in @.claude/shared/AGENT-INVOCATION-CONTEXT.md
+1. Do the instructions in @.claude/shared/apf/AGENT-INVOCATION-CONTEXT.md
 2. Launch the `demo-agent1` agent and wait for its result.
 3. Launch the `demo-agent2` agent and wait for its result.
 4. Launch the `demo-agent1` agent again and wait for its result.
