@@ -218,3 +218,4 @@ apf_install.bat
 .apf/
 .claude/commands/apf/
 .claude/scripts/apf/
+.claude/shared
