@@ -212,3 +212,8 @@ temp/
 logs/
 
 pip_update.bat
+
+# Don't include files of APF in your repo
+.apf/
+.claude/commands/apf/
+.claude/scripts/apf/
