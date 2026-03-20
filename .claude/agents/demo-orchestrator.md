@@ -1,8 +1,7 @@
 ---
 name: demo-orchestrator
-description: Orchestrates demo agents by launching demo-agent1, then demo-agent2, then demo-agent1
-in sequence.
-tools: Glob, Grep, Read, WebFetch, WebSearch, Bash, Task, TaskCreate, TaskGet, TaskUpdate, TaskList
+description: Orchestrates demo agents by launching demo-agent1, then demo-agent2, then demo-agent1 in sequence.
+tools: Glob, Grep, Read, WebFetch, WebSearch, Bash, TaskCreate, TaskGet, TaskUpdate, TaskList, TaskOutput
 ---
 
 # Demo Orchestrator
