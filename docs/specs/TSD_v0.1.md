@@ -7,9 +7,10 @@
 ## 1. Document Control
 
 - **Product / Feature Name:** Color Button Demo
-- **Technical One-liner:** Single-page frontend calling a local Python/Flask REST API that returns a random named color; the button updates its background color and shows a popup.
+- **Technical One-liner:** Single-page frontend calling a local Python/Flask REST API that returns a
+  random named color; the button updates its background color and shows a popup.
 - **Version:** 0.1
-- **Status:** Draft
+- **Status:** Approved
 - **Author(s):** Iddo Lev
 - **Reviewers:** Iddo Lev
 - **Last Updated:** 2026-03-24 19:09
@@ -43,16 +44,25 @@
 
 ### 2.1 Technical Summary
 
-- **Objective:** Build a minimal full-stack web app (frontend + backend) to validate the APF agentic workflow end-to-end.
-- **High-Level Solution:** A Flask application serves a static `index.html` at `GET /` and exposes `GET /random-color`. The page contains a centered button; clicking it fetches a random named color from the backend, updates the button's background, and shows a browser `alert` with the color name.
-- **Key Trade-offs / Decisions:** Serving the frontend from Flask (same origin) eliminates CORS complexity. Plain HTML/JS (no framework) minimizes dependencies. Browser `alert()` for the popup avoids any UI component library.
+- **Objective:** Build a minimal full-stack web app (frontend + backend) to validate the APF agentic
+  workflow end-to-end.
+- **High-Level Solution:** A Flask application serves a static `index.html` at `GET /` and exposes
+  `GET /random-color`. The page contains a centered button; clicking it fetches a random named color
+  from the backend, updates the button's background, and shows a browser `alert` with the color
+  name.
+- **Key Trade-offs / Decisions:** Serving the frontend from Flask (same origin) eliminates CORS
+  complexity. Plain HTML/JS (no framework) minimizes dependencies. Browser `alert()` for the popup
+  avoids any UI component library.
 
 ### 2.2 Scope & Assumptions
 
-- **In Scope:** Flask backend with one API endpoint; static HTML/CSS/JS frontend; single local-dev environment.
-- **Out of Scope:** Persistent storage, user authentication, color history, animated transitions, native mobile, color picker.
+- **In Scope:** Flask backend with one API endpoint; static HTML/CSS/JS frontend; single local-dev
+  environment.
+- **Out of Scope:** Persistent storage, user authentication, color history, animated transitions,
+  native mobile, color picker.
 - **Assumptions:** Developer runs Python 3.11+ locally; app is accessed in a modern desktop browser.
-- **Constraints:** All dependencies installable via pip; startup via `python app.py`; no external services.
+- **Constraints:** All dependencies installable via pip; startup via `python app.py`; no external
+  services.
 
 ---
 
@@ -77,7 +87,8 @@
 
 ### 4.1 System Context
 
-A single Python process runs Flask locally. The browser loads the page from Flask and makes XHR/fetch calls to the same Flask process. No external services, no database, no CDN.
+A single Python process runs Flask locally. The browser loads the page from Flask and makes
+XHR/fetch calls to the same Flask process. No external services, no database, no CDN.
 
 ```
 Browser
@@ -100,7 +111,8 @@ Browser
 1. Developer runs `python app.py`; Flask starts on `localhost:5000`.
 2. Browser navigates to `http://localhost:5000/` → Flask serves `static/index.html`.
 3. User clicks the button → JS calls `fetch('/random-color')`.
-4. Flask selects a random color from its in-memory list → returns `{ "name": "Coral", "code": "#FF7F50" }`.
+4. Flask selects a random color from its in-memory list → returns `{ "name": "Coral", "code":
+   "#FF7F50" }`.
 5. JS sets `button.style.backgroundColor = code` → calls `alert("Changed the color to Coral")`.
 
 ### 4.4 Key Design Decisions
@@ -162,7 +174,8 @@ Browser
 | `name` | string | Human-readable color name (e.g. `"Coral"`) |
 | `code` | string | CSS-compatible hex color value (e.g. `"#FF7F50"`) |
 
-- **Error Cases:** Flask returns HTTP 500 only on an unhandled exception (should never occur given a hardcoded list). The frontend treats any non-200 response as an error.
+- **Error Cases:** Flask returns HTTP 500 only on an unhandled exception (should never occur given a
+  hardcoded list). The frontend treats any non-200 response as an error.
 - **CORS:** Not required — frontend is served from the same Flask origin.
 
 ### 6.2 Endpoint: `GET /`
@@ -182,9 +195,12 @@ Browser
 - **Steps:**
   1. JS `click` event listener fires.
   2. `fetch('/random-color')` is called (async).
-  3. While the request is in flight, the button remains interactive (no loading state required — response is near-instant on localhost).
-  4. On success (HTTP 200): parse JSON → set `button.style.backgroundColor = data.code` → call `window.alert("Changed the color to " + data.name)`.
-  5. On failure (non-200 or network error): call `window.alert("Error: could not fetch color. Please try again.")`.
+  3. While the request is in flight, the button remains interactive (no loading state required —
+     response is near-instant on localhost).
+  4. On success (HTTP 200): parse JSON → set `button.style.backgroundColor = data.code` → call
+     `window.alert("Changed the color to " + data.name)`.
+  5. On failure (non-200 or network error): call `window.alert("Error: could not fetch color. Please
+     try again.")`.
 - **Failure Modes:**
   - Backend unreachable (not started): `fetch` rejects → error branch → alert shown.
   - Backend returns non-200: response check fails → error branch → alert shown.
@@ -197,8 +213,10 @@ Browser
 
 ### 8.1 Random Color Selection
 
-- The backend selects one color uniformly at random from its color list using Python's `random.choice()`.
-- No de-duplication: the same color may be returned on consecutive clicks (PRD UC-1 explicitly allows this).
+- The backend selects one color uniformly at random from its color list using Python's
+  `random.choice()`.
+- No de-duplication: the same color may be returned on consecutive clicks (PRD UC-1 explicitly
+  allows this).
 
 ### 8.2 Color Palette
 
@@ -239,7 +257,8 @@ Colors are chosen to be visually distinct and have high contrast with white butt
 - No cookies, sessions, or authentication.
 - Backend exposes no sensitive information — only color names and hex codes.
 - API keys: none required.
-- Local-only: the app is not intended to be exposed to a network; `debug=True` is acceptable for this scope.
+- Local-only: the app is not intended to be exposed to a network; `debug=True` is acceptable for
+  this scope.
 
 ---
 
