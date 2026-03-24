@@ -8,7 +8,7 @@
 
 - **Product / Feature Name:** Color Button Demo
 - **Version:** 0.1
-- **Status:** Draft
+- **Status:** Approved
 - **Author(s):** Iddo Lev
 - **Last Updated:** 2026-03-24 21:40
 - **Related TSD:** [TSD v0.1](../specs/TSD_v0.1.md)
@@ -156,7 +156,8 @@ user interaction — requires a real browser and is covered by a manual checklis
 - [ ] **TC-09** — Click 3 more times; each click changes color and shows alert.
 - [ ] **TC-10** — Stop Flask (`Ctrl+C`); click button; alert shows error message.
 - [ ] **TC-11** — Tab to button; press Enter; color changes and alert appears.
-- [ ] **Performance** — Visually, color change and alert appear near-instantly (< 1s subjectively on localhost).
+- [ ] **Performance** — Visually, color change and alert appear near-instantly (< 1s subjectively on
+  localhost).
 
 ---
 

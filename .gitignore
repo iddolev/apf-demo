@@ -215,7 +215,8 @@ pip_update.bat
 
 # Don't include files of APF in your repo
 apf_install.bat
-.apf/
+.apf/congif/
+.apf/preparation/
 .claude/commands/apf/
 .claude/scripts/apf/
 .claude/shared
