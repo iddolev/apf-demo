@@ -1,0 +1,5 @@
+This project is very simple. It's purpose is to do a first run through that APF workflow.
+
+In this project, I want a webapp that has a button in the middle of the page.
+When clicking the button, the button changes color to a random color,
+and a popup message appears with "Changed the color to <color_name>".
