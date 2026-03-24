@@ -23,9 +23,9 @@ version: 0.1
 - [v] PROGRAMMING-PRINCIPLES
 - [v] PROJECT-RULES
 - [v] SECURITY-CONVENTIONS
-- [.] GIT-RULES
-- [ ] README
-- [ ] PROJECT-STRUCTURE
+- [v] GIT-RULES
+- [v] README
+- [v] PROJECT-STRUCTURE
 
 ## Setting Up Agents
 
