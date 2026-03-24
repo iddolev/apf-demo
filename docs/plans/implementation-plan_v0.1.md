@@ -8,7 +8,7 @@
 
 - **Product / Feature Name:** Color Button Demo
 - **Version:** 0.1
-- **Status:** Draft
+- **Status:** Approved
 - **Author(s):** Iddo Lev
 - **Last Updated:** 2026-03-24
 - **Related TSD:** [TSD v0.1](../specs/TSD_v0.1.md)
@@ -85,7 +85,8 @@ the API contract (`GET /random-color` → `{ name, code }`) is fully defined in 
 
 > **Scope:** This section covers **plan execution risks** — risks to timeline, sequencing, resource
 > availability, environment readiness, and other "what could delay or block work?" concerns.
-> **Technical design risks** (architecture choices, technology compatibility, SDK behavior) belong in
+> **Technical design risks** (architecture choices, technology compatibility, SDK behavior) belong
+in
 > the **TSD** Risks section, not here.
 
 | Risk / Dependency                                   | Impact | Mitigation                                                                          |
@@ -97,4 +98,4 @@ the API contract (`GET /random-color` → `{ name, code }`) is fully defined in 
 
 ## Change Log
 
-- *v0.1 - 2026-03-24* - Initial skeleton by Iddo Lev
+- *v0.1 - 2026-03-24 20:45* - Initial skeleton by Iddo Lev
