@@ -29,7 +29,7 @@ version: 0.1
 
 ## Setting Up Agents
 
-- [ ] SHARED-AGENT-CONTEXT.md
+- [.] SHARED-AGENT-CONTEXT.md
 - [ ] CLAUDE.md
 - [ ] tech-lead agent
 - [ ] Additional agents
